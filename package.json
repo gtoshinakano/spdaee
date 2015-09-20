@@ -1,0 +1,28 @@
+{
+  "name": "sistema-patrimonio",
+  "version": "0.0.0",
+  "description": "Sistema de Patrimônio do DAEE",
+  "main": "server.bat",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gtoshinakano/spdaee.git"
+  },
+  "author": "Gabriel Nakano",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gtoshinakano/spdaee/issues"
+  },
+  "homepage": "https://github.com/gtoshinakano/spdaee#readme",
+  "dependencies": {
+    "body-parser": "^1.14.0",
+    "cookie-parser": "^1.4.0",
+    "cookie-session": "^1.2.0",
+    "express": "^4.13.3",
+    "express-handlebars": "^2.0.1",
+    "express-session": "^1.11.3",
+    "formidable": "^1.0.17"
+  }
+}
