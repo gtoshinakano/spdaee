@@ -1,7 +1,5 @@
 var express = require('express');
 var credentials = require('./config/credentials.js');
-var passport = require('passport');
-
 var app = express();
 
 // set up handlebars view engine
@@ -16,9 +14,10 @@ var MongoSessionStore = require('session-mongoose')(require('connect'));
 var sessionStore = new MongoSessionStore({ url: credentials.mongo.connectionString });
 app.use(require('cookie-parser')(credentials.cookieSecret));
 app.use(require('express-session')({secret: credentials.sessionSecret, store: sessionStore, resave:false, saveUninitialized: true }));
-app.use(passport.initialize());
-app.use(passport.session());
-require('./config/passport')(passport);
+app.use(require('body-parser').json());
+app.use(require('body-parser').urlencoded({
+  extended: true
+}));
 
 /*
  * Configurar FLASH
@@ -54,7 +53,7 @@ switch(app.get('env')){
 /*
  * Chamando arquivo de rotas Rotas
  */
-require('./routes/routes.js')(app, passport);
+require('./routes/routes.js')(app);
 
 /*
  * 404 Erro de tudo o que não estiver previsto
