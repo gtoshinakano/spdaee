@@ -1,3 +1,5 @@
 /node_modules
-credentials.js
+/config/credentials.js
 /data
+start_database.bat
+start_server.bat
