@@ -1,4 +1,4 @@
-# spdaee
+﻿# spdaee
 Sistema de Patrimônio
 
 ## NODE_MODULES UTILIZADOS ##
@@ -15,4 +15,4 @@ Sistema de Patrimônio
 	
 ## CRIAR ARQUIVOS ##
 
-credentials.js - Recebe valores importantes de configuração 
+config/credentials.js - Recebe valores importantes de configuração 
