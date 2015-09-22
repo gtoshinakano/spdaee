@@ -15,7 +15,5 @@ exports.signup = function(req,res){
 
 exports.signupPost = function(req, res){
 	console.log(req.body.email);
-	
-
 	res.render('signup');
 }

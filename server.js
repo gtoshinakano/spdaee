@@ -15,9 +15,8 @@ var sessionStore = new MongoSessionStore({ url: credentials.mongo.connectionStri
 app.use(require('cookie-parser')(credentials.cookieSecret));
 app.use(require('express-session')({secret: credentials.sessionSecret, store: sessionStore, resave:false, saveUninitialized: true }));
 app.use(require('body-parser').json());
-app.use(require('body-parser').urlencoded({
-  extended: true
-}));
+app.use(require('body-parser').urlencoded({ extended: true }));
+
 
 /*
  * Configurar FLASH
@@ -28,6 +27,32 @@ app.use(function(req, res, next){
 	res.locals.flash = req.session.flash;
 	delete req.session.flash;
 	next();
+});
+
+/*
+ * Middleware para sessions.flash e session.login
+ */
+app.use(function(req, res, next){
+  var err = req.session.error,
+      msg = req.session.notice,
+      success = req.session.success;
+
+  delete req.session.error;
+  delete req.session.success;
+  delete req.session.notice;
+
+  if (err) res.locals.error = err;
+  if (msg) res.locals.notice = msg;
+  if (success) res.locals.success = success;
+
+  //para verificar login e paginas restritas
+  var restrict = ["/", "/about"];
+  if (restrict.indexOf(req.path) >= 0 && typeof req.session.login == 'undefined') {
+    req.session.error = "Página restrita. Faça o login pelo formulário abaixo";
+    return res.redirect(303, '/login');
+  }else{
+    next();
+  }
 });
 
 /*
