@@ -17,18 +17,6 @@ app.use(require('express-session')({secret: credentials.sessionSecret, store: se
 app.use(require('body-parser').json());
 app.use(require('body-parser').urlencoded({ extended: true }));
 
-
-/*
- * Configurar FLASH
- */
-app.use(function(req, res, next){
-  // if there's a flash message, transfer
-  // it to the context, then clear it
-	res.locals.flash = req.session.flash;
-	delete req.session.flash;
-	next();
-});
-
 /*
  * Middleware para sessions.flash e session.login
  */
@@ -36,7 +24,9 @@ app.use(function(req, res, next){
   var err = req.session.error,
       msg = req.session.notice,
       success = req.session.success;
+      flash = req.session.flash;
 
+  delete req.session.flash;
   delete req.session.error;
   delete req.session.success;
   delete req.session.notice;
@@ -44,6 +34,7 @@ app.use(function(req, res, next){
   if (err) res.locals.error = err;
   if (msg) res.locals.notice = msg;
   if (success) res.locals.success = success;
+  if (flash) res.locals.flash = flash;
 
   //para verificar login e paginas restritas
   var restrict = ["/", "/about"];
