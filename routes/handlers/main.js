@@ -14,6 +14,10 @@ exports.signup = function(req,res){
 }
 
 var User = require('../../models/user');
+
+/*
+ * TODO Inserção de usuarios? Como vai funcionar?
+ */
 exports.signupPost = function(req, res){
 	console.log(req.body.login);
 
