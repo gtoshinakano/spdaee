@@ -35,8 +35,10 @@ console.log('aio');
 	res.render('signup', data);
 }
 
+/*
+ * Script de login quando recebe POST
+ */
 exports.loginPost = function(req, res, next){
-
 	var data = {};
 	var query = User.findOne({ 'login' : req.body.login, 'senha': req.body.password });
 	query.exec(function(err, user){
@@ -50,7 +52,8 @@ exports.loginPost = function(req, res, next){
 			res.locals.success = data.message;
 			req.session.login = user.login;
 			req.session.nivel = user.nivel;
-			//req.session.logggedin = implementar
+			var now = new Date();
+			req.session.lastAccess = now.getTime();
 			return res.redirect(303, '/about');
 		} else {
 			data.message = "Usuário não encontrado.";
@@ -58,13 +61,16 @@ exports.loginPost = function(req, res, next){
 			res.render('login', data);
 		}
 	});
-
 }
 
+/*
+ * Script de logout, volta para a página de login
+ */
 exports.logout = function(req,res){
 
 	req.session.notice = "Deslogado";
 	delete req.session.login;
 	delete req.session.nivel;
+	delete req.session.lastAccess;
 	return res.redirect(303, '/login');
 }

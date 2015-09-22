@@ -18,35 +18,6 @@ app.use(require('body-parser').json());
 app.use(require('body-parser').urlencoded({ extended: true }));
 
 /*
- * Middleware para sessions.flash e session.login
- */
-app.use(function(req, res, next){
-  var err = req.session.error,
-      msg = req.session.notice,
-      success = req.session.success;
-      flash = req.session.flash;
-
-  delete req.session.flash;
-  delete req.session.error;
-  delete req.session.success;
-  delete req.session.notice;
-
-  if (err) res.locals.error = err;
-  if (msg) res.locals.notice = msg;
-  if (success) res.locals.success = success;
-  if (flash) res.locals.flash = flash;
-
-  //para verificar login e paginas restritas
-  var restrict = ["/", "/about"];
-  if (restrict.indexOf(req.path) >= 0 && typeof req.session.login == 'undefined') {
-    req.session.error = "Página restrita. Faça o login pelo formulário abaixo";
-    return res.redirect(303, '/login');
-  }else{
-    next();
-  }
-});
-
-/*
  * Conectando com mongoose
  */
 var mongoose = require('mongoose');
@@ -67,7 +38,12 @@ switch(app.get('env')){
 }
 
 /*
- * Chamando arquivo de rotas Rotas
+ * Middleware para sessions.flash e session.login /routes/middlewares.js
+ */
+require('./routes/middlewares.js')(app);
+
+/*
+ * Chamando Rotas
  */
 require('./routes/routes.js')(app);
 
