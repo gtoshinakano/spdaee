@@ -1,5 +1,4 @@
-{{#section 'json-editor'}}
-
+{{#section 'alpaca-load'}}
 
 {{/section}}
 
@@ -14,11 +13,8 @@
       {{#if data.message}}
           <div class="alert alert-danger">{{message}}</div>
       {{/if}}
+      <div id="form"></form>
 
-      <!-- COMEÇANDO PATIFARIA DO SCHEMA-FORM-->
-      <div ng-controller="FormController">
-          <form sf-schema="schema" sf-form="form" sf-model="model"></form>
-      </div>
 
   </div>
 
