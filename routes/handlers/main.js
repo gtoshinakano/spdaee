@@ -37,6 +37,7 @@ exports.signupPost = function(req, res){
 	}else{
 		saveData.prontuario = req.body.prontuario;
 		saveData.login = req.body.prontuario;
+		saveData.senha = req.body.prontuario;
 		saveData.cargo = req.body.cargo;
 	}
 	if(req.body.divisao == "" && req.body.secao == "" && req.body.setor == "" && req.body.servico == ""){
@@ -59,8 +60,7 @@ exports.signupPost = function(req, res){
 				res.locals.error = "Usuario "+ req.body.nome +" já existe";
 				res.render('signup');
 			} else {
-				console.log("TODO");
-				res.locals.success = "Usuário Cadastrado com sucesso";
+				res.locals.success = "Usuário cadastrado com sucesso";
 				new User(saveData).save();
 				res.render('signup');
 			}

@@ -25,7 +25,7 @@
         <div class="form-group">
           <label for="nome" class="control-label col-sm-1">Nome:</label>
           <div class="col-sm-11">
-            <input type="text" class="form-control" id="nome" name="nome" ng-model="nome" placeholder="Digite aqui o nome do servidor" ng-minlength="10" required>
+            <input type="text" class="form-control" id="nome" name="nome" ng-model="nome" ng-keyup="toUpperCase" placeholder="Digite aqui o nome do servidor" ng-minlength="10" required>
             <span style="color:red" ng-show="myForm.nome.$invalid && !myForm.nome.$pristine" class="help-block">Este campo é obrigatório e deve conter no mínimo 10 caracteres.</span>
           </div>
         </div>
