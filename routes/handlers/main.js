@@ -9,7 +9,7 @@ exports.login = function(req, res){
 
 exports.signup = function(req,res){
 
-	
+
 	res.render('signup');
 
 }
@@ -17,27 +17,57 @@ exports.signup = function(req,res){
 var User = require('../../models/user');
 
 /*
- * TODO Inserção de usuarios? Como vai funcionar?
+ * Inserção de usuarios
  */
 exports.signupPost = function(req, res){
-	console.log(req.body.login);
+	console.log(req.body.nome);
+	var invalid = 0;
+	var message = "";
+	var saveData = {};
+	saveData.local = {};
+	if(req.body.nome.length < 10){
+		invalid++;
+		message+= "Nome muito curto || ";
+	}else{
+		saveData.nome = req.body.nome;
+	}
+	if(req.body.prontuario < 100){
+		invalid++;
+		message+= "Prontuário muito baixo. || ";
+	}else{
+		saveData.prontuario = req.body.prontuario;
+		saveData.login = req.body.prontuario;
+		saveData.cargo = req.body.cargo;
+	}
+	if(req.body.divisao == "" && req.body.secao == "" && req.body.setor == "" && req.body.servico == ""){
+		invalid++;
+		message+= "Pelo menos um(a) Divisão/Serviço/Seção/Setor deve ser preenchido(a). || ";
+	}else{
+		saveData.local.divisao = req.body.divisao;
+		saveData.local.secao   = req.body.secao;
+		saveData.local.setor   = req.body.setor;
+		saveData.local.servico = req.body.servico;
+	}
+	if(invalid > 0){
+		res.locals.error = message;
+		res.render('signup');
+	}else{
+		User.findOne({ 'nome' :  req.body.nome }, function(err, user){
+			if (err)
+	    	res.locals.error = "erro " + err;
+			if (user) {
+				res.locals.error = "Usuario "+ req.body.nome +" já existe";
+				res.render('signup');
+			} else {
+				console.log("TODO");
+				res.locals.success = "Usuário Cadastrado com sucesso";
+				new User(saveData).save();
+				res.render('signup');
+			}
 
-	var data = {};
-	User.findOne({ 'login' :  req.body.login }, function(err, user){
-		if (err)
-    	data.message = "erro " + err;
-		if (user) {
-			data.message = "Usuario " + req.body.login + " existente";
-			console.log(user);
-		} else {
-			console.log("TODO");
-			data.message = "TODO";
+		});
+	}
 
-		}
-
-	});
-console.log('aio');
-	res.render('signup', data);
 }
 
 /*

@@ -16,7 +16,7 @@ var userSchema = mongoose.Schema({
 		setor: String
 	},
 	cargo: String,
-	nivel: Number,
+	nivel: {type: Number, 'default': 0},
 	createdOn:  { type: Date, 'default': Date.now },
 	modifiedOn: Date,
 });

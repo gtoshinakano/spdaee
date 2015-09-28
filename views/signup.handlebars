@@ -1,20 +1,71 @@
-{{#section 'alpaca-load'}}
-<script src="js/jsoneditor.js"></script>
+{{#section 'angjs-script'}}
+<script src="js/signup.js"></script>
 {{/section}}
 
-<div class="container">
+<div class="container-fluid col-md-6 col-md-offset-3" ng-app="signup-form" ng-controller="signup-cont" >
+  <h1><span class="fa fa-sign-in"></span>Sistema Patrimonial - Cadastro de Usuários</h1>
+  <div class="row">
+    <!-- show any messages that come back with authentication -->
+    {{#if error}}
+      <p class="alert alert-warning">{{error}}</p>
+    {{/if}}
 
-  <div class="col-sm-6 col-sm-offset-3">
+    {{#if success}}
+      <p class="alert alert-success">{{success}}</p>
+    {{/if}}
 
-      <h1><span class="fa fa-sign-in"></span> Signup</h1>
-
-      <!-- show any messages that come back with authentication -->
-
-      {{#if data.message}}
-          <div class="alert alert-danger">{{message}}</div>
-      {{/if}}
-      <div id="form"></form>
-
+    {{#if notice}}
+      <p class="alert alert-info">{{notice}}</p>
+    {{/if}}
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <h3>Novo Usuário</h3>
+      <form class="form-horizontal" role="form" method="post" action="signup" ng-submit="submitForm(myForm.$valid)" name="myForm" novalidate>
+        <div class="form-group">
+          <label for="nome" class="control-label col-sm-1">Nome:</label>
+          <div class="col-sm-11">
+            <input type="text" class="form-control" id="nome" name="nome" ng-model="nome" placeholder="Digite aqui o nome do servidor" ng-minlength="10" required>
+            <span style="color:red" ng-show="myForm.nome.$invalid && !myForm.nome.$pristine" class="help-block">Este campo é obrigatório e deve conter no mínimo 10 caracteres.</span>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="numero" class="control-label col-sm-1">Prontuário: </label>
+          <div class="col-sm-3">
+            <input type="number" min="0" max='99999' maxlength="5" class="form-control" id="prontuario" name="prontuario" ng-model="prontuario" placeholder="Número do prontuário" required>
+            <span style="color:red" ng-show="myForm.prontuario.$invalid && !myForm.prontuario.$pristine" class="help-block">Prontuário obrigatório</span>
+          </div>
+          <label for="cargo" class="control-label col-sm-1">Cargo: </label>
+          <div class="col-sm-7">
+            <input type="text" class="form-control" name="cargo" ng-model="cargo" placeholder="Cargo administrativo" ng-minlength="5" required>
+            <span style="color:red" ng-show="myForm.cargo.$invalid && !myForm.cargo.$pristine" class="help-block">Cargo obrigatório com no mínimo 5 caracteres</span>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="divisao" class="control-label col-sm-1">Divisão: </label>
+          <div class="col-sm-2">
+            <input type="text" maxlength="5" class="form-control" id="divisao" name="divisao" ng-model="divisao" placeholder="" />
+          </div>
+          <label for="servico" class="control-label col-sm-1">Serviço: </label>
+          <div class="col-sm-2">
+            <input type="text" maxlength="5" class="form-control" id="servico" name="servico" ng-model="servico" placeholder="" />
+          </div>
+          <label for="secao" class="control-label col-sm-1">Seção: </label>
+          <div class="col-sm-2">
+            <input type="text" maxlength="5" class="form-control" id="secao" name="secao" ng-model="secao" placeholder="" />
+          </div>
+          <label for="setor" class="control-label col-sm-1">Setor: </label>
+          <div class="col-sm-2">
+            <input type="text" maxlength="5" class="form-control" id="setor" name="setor" ng-model="setor" placeholder="" />
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="col-sm-offset-1 col-sm-11">
+            <button type="submit" class="btn btn-primary" ng-disabled="myForm.$invalid">Cadastrar</button>
+          </div>
+        </div>
+      </form>
+    </div>
   </div>
 
 </div>
@@ -22,46 +73,6 @@
 {{#section 'final-script'}}
 
 <script>
-
-JSONEditor.defaults.options.theme = 'bootstrap3';
-// Initialize the editor with a JSON schema
-
- var editor = new JSONEditor(document.getElementById('editor_holder'),{
-   schema: {
-     type: "object",
-     title: "New User",
-     properties: {
-       Login:  { type: "string", "minLength": 6 },
-       Senha: { type: "string",  "minLength": 6 },
-       Prontuario: {"type": "integer", "default": 0001, "minimum": 0001, "maximum": 99999},
-       Nome:  { type: "string", "minLength": 15 },
-       Local: {
-         divisao: { type: "string", "minLength": 6 },
-         servico: { type: "string", "minLength": 6 },
-         secao: { type: "string", "minLength": 6 },
-         setor: { type: "string", "minLength": 6 },
-       },
-       cargo: { type: "string", description: "login do usuario", "minLength": 6 },
-       nivel: {"type": "integer", "default": 0001, "minimum": 0001, "maximum": 99999},
-       createdOn:  { "type" : "string", "format": "datetime-local" },
-       modifiedOn: { "type" : "string", "format": "datetime-local" }
-     },
-     options:{
-       disable_collapse: true,
-       disable_edit_json: true,
-       disable_properties: true,
-       form_name_root: "arriba"
-     }
-   }
- });
-
-
-
- // Hook up the submit button to log to the console
- document.getElementById('submit').addEventListener('click',function() {
-   // Get the value from the editor
-   console.log(editor.getValue());
- });
 
 </script>
 
