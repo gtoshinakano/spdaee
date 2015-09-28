@@ -1,5 +1,5 @@
 {{#section 'alpaca-load'}}
-
+<script src="js/jsoneditor.js"></script>
 {{/section}}
 
 <div class="container">
@@ -15,7 +15,54 @@
       {{/if}}
       <div id="form"></form>
 
-
   </div>
 
 </div>
+
+{{#section 'final-script'}}
+
+<script>
+
+JSONEditor.defaults.options.theme = 'bootstrap3';
+// Initialize the editor with a JSON schema
+
+ var editor = new JSONEditor(document.getElementById('editor_holder'),{
+   schema: {
+     type: "object",
+     title: "New User",
+     properties: {
+       Login:  { type: "string", "minLength": 6 },
+       Senha: { type: "string",  "minLength": 6 },
+       Prontuario: {"type": "integer", "default": 0001, "minimum": 0001, "maximum": 99999},
+       Nome:  { type: "string", "minLength": 15 },
+       Local: {
+         divisao: { type: "string", "minLength": 6 },
+         servico: { type: "string", "minLength": 6 },
+         secao: { type: "string", "minLength": 6 },
+         setor: { type: "string", "minLength": 6 },
+       },
+       cargo: { type: "string", description: "login do usuario", "minLength": 6 },
+       nivel: {"type": "integer", "default": 0001, "minimum": 0001, "maximum": 99999},
+       createdOn:  { "type" : "string", "format": "datetime-local" },
+       modifiedOn: { "type" : "string", "format": "datetime-local" }
+     },
+     options:{
+       disable_collapse: true,
+       disable_edit_json: true,
+       disable_properties: true,
+       form_name_root: "arriba"
+     }
+   }
+ });
+
+
+
+ // Hook up the submit button to log to the console
+ document.getElementById('submit').addEventListener('click',function() {
+   // Get the value from the editor
+   console.log(editor.getValue());
+ });
+
+</script>
+
+{{/section}}
