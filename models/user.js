@@ -10,6 +10,7 @@ var userSchema = mongoose.Schema({
 	prontuario: {type: Number, unique:true},
 	nome:  {type: String, unique:true},
 	local: {
+		diretoria: String,
 		divisao: String,
 		servico: String,
 		secao: String,
