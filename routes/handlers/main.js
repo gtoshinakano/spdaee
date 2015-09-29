@@ -109,3 +109,7 @@ exports.logout = function(req,res){
 	delete req.session.lastAccess;
 	return res.redirect(303, '/login');
 }
+
+/*
+ * Script de Migração da tabela MySQL users para users
+ */
