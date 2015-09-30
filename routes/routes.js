@@ -13,8 +13,11 @@ module.exports = function(app){
   app.post('/signup', main.signupPost);
   app.get('/logout', main.logout);
 
+  //Páginas Restritas
+  require('./restrict.js')(app);
+  app.get('/migrateUsers/:ind', main.migrateUsers);
+  app.post('/migrateUsers/:ind', main.migrateUsersPost);
 
-  //Actions routes
 
 
 }

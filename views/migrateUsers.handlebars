@@ -1,0 +1,33 @@
+<div class="container-fluid col-md-6 col-md-offset-3" ng-app="signup-form" ng-controller="signup-cont" >
+  <h1><span class="fa fa-sign-in"></span>Sistema Patrimonial</h1>
+  <div class="row">
+    <!-- show any messages that come back with authentication -->
+    {{#if error}}
+      <p class="alert alert-warning">{{error}}</p>
+    {{/if}}
+
+    {{#if success}}
+      <p class="alert alert-success">{{success}}</p>
+    {{/if}}
+
+    {{#if notice}}
+      <p class="alert alert-info">{{notice}}</p>
+    {{/if}}
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <h3>Migração de Usuários</h3>
+      <form class="form-horizontal" role="form" method="post" action="{{getIndex}}">
+        <div class="form-group">
+          <label for="nome" class="control-label col-sm-2">Índice: {{getIndex}}</label>
+          <div class="col-sm-10">
+            <input type="hidden" name="key" value="{{getIndex}}" />
+            <input type="submit" value="Inserir" />
+          </div>
+        </div>
+      </form>
+
+
+    </div>
+  </div>
+</div>

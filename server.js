@@ -18,6 +18,7 @@ app.set('view engine', 'handlebars');
 app.set('port', process.env.PORT || 3000);
 
 app.use(express.static(__dirname + '/public'));
+app.use('*/static', express.static(__dirname + '/public'));
 
 var MongoSessionStore = require('session-mongoose')(require('connect'));
 var sessionStore = new MongoSessionStore({ url: credentials.mongo.connectionString });
@@ -47,7 +48,7 @@ switch(app.get('env')){
 }
 
 /*
- * Middleware para sessions.flash e session.login /routes/middlewares.js
+ * Middleware para todas as páginas
  */
 require('./routes/middlewares.js')(app);
 
