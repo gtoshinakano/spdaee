@@ -18,6 +18,7 @@ var userSchema = mongoose.Schema({
 	},
 	cargo: String,
 	nivel: {type: Number, 'default': 0},
+	status: Number,
 	createdOn:  { type: Date, 'default': Date.now },
 	modifiedOn: Date,
 });
