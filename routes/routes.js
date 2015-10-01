@@ -1,5 +1,5 @@
 var main = require('./handlers/main.js'),
-    restrict = require('./handlers/restrict.js'),
+    migration = require('./handlers/migration.js'),
     actions = require('./handlers/actions.js');
 
 module.exports = function(app){
@@ -15,8 +15,8 @@ module.exports = function(app){
 
   //Páginas Restritas
   require('./restrict.js')(app);
-  app.get('/migrateUsers/:ind', main.migrateUsers);
-  app.post('/migrateUsers/:ind', main.migrateUsersPost);
+  app.get('/migrateUsers/:ind', migration.migrateUsers);
+  app.post('/migrateUsers/:ind', migration.migrateUsersPost);
 
 
 

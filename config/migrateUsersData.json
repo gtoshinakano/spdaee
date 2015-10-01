@@ -20632,11 +20632,11 @@
 	    "cargo": "Administrador Master",
 	    "status": 1,
 	    "local": {
-	        "diretoria": "DSD",
-	        "divisao": "ADA",
-        	"secao": "",
-	        "setor": "",
-	        "servico": ""
+	        "servico": "",
+		"setor": "",
+		"secao": "",
+		"divisao": "ADAA",
+	        "diretoria": "DSD"
 	    }
 	}
 }

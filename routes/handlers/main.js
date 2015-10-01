@@ -109,38 +109,3 @@ exports.logout = function(req,res){
 	delete req.session.lastAccess;
 	return res.redirect(303, '/login');
 }
-
-/*
- * Script de Migração da tabela MySQL users para users SEM POST
- */
-exports.migrateUsers = function(req,res){
-	res.locals.getIndex = (parseInt(req.params.ind)) ? parseInt(req.params.ind): 0;
-	res.render('migrateUsers');
-}
-
-/*
- * Script de Migração da tabela MySQL users para users COM POST
- */
-exports.migrateUsersPost = function (req,res){
-	var key = req.body.key;
-	var toMigrate = require('../../config/migrateUsersData.json');
-	var nextKey = key;
-	var migratingUser = toMigrate[key];
-
-	var query = User.findOne({ migratingUser });
-	query.exec(function(err, user){
-		if(err){
-			req.session.error = err;
-		}
-		if(user){
-			req.session.error = "Usuário encontrado. Nenhuma ação tomada";
-			return res.redirect(303, '/migrateUsers/' + nextKey);
-		}else{
-
-
-			req.session.notice = "Opened " + toMigrate[key].prontuario;
-			nextKey++;
-			return res.redirect(303, '/migrateUsers/' + nextKey);
-		}
-	});
-}
