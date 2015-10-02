@@ -19,7 +19,7 @@
 
                 $texto.= "\t\"$i\":{\n";
                 $texto.= "\t\t\"login\": \"".$linha['prontuario']."\", \n";
-                $texto.= "\t\t\"senha\": \"".$linha['prontuario']."\", \n";
+                $texto.= "\t\t\"senha\": \"".$linha['prontuario']."\", \n"; // criar HASH
                 $texto.= "\t\t\"prontuario\": \"".$linha['prontuario']."\", \n";
                 $texto.= "\t\t\"nome\": \"".$linha['nome']."\", \n";
                 $texto.= "\t\t\"local\": {\n";

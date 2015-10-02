@@ -75,7 +75,7 @@ exports.signupPost = function(req, res){
  */
 exports.loginPost = function(req, res, next){
 	var data = {};
-	var query = User.findOne({ 'login' : req.body.login, 'senha': req.body.password, 'status': 1 });
+	var query = User.findOne({ 'login' : req.body.login, 'senha': req.body.password, 'status': 1 }); // criar HASH
 	query.exec(function(err, user){
 		if (err){
     	data.message = "erro " + err;
