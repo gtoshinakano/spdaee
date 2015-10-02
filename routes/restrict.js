@@ -2,7 +2,7 @@
  * Middleware para fechar páginas restritas
  * Desloga usuário caso tempo de lastAccess ultrapasse var expira
  */
-module.exports = function(app){
+exports.simpleSession = function(app){
 
   app.use(function(req, res, next){
     //para verificar login e paginas restritas
@@ -14,15 +14,32 @@ module.exports = function(app){
       return res.redirect(303, '/login');
     }else{
       if(atual.getTime() - req.session.lastAccess >= expira){
-        req.session.error = "Tempo de sessão expirado";
-      	delete req.session.login;
-      	delete req.session.nivel;
-      	delete req.session.lastAccess;
-      	return res.redirect(303, '/login');
+        req.session.error = "Deslogado por tempo de inatividade (60 minutos)";
+      	return res.redirect(303, '/logout');
       }else
         req.session.lastAccess = atual.getTime();
         next();
     }
+  });
+
+}
+
+/*
+ * Middleware para fechar páginas restritas
+ * @param nível de permissão necessário para acesso
+ */
+exports.redirectByPermission = function(app, nivel){
+
+  app.use(function(req, res, next){
+
+    if (req.session.nivel != nivel){
+
+      req.session.error = "Página restrita para o seu nível de permissão";
+      return res.redirect(303, '/about');
+
+    }else
+      next();
+
   });
 
 }

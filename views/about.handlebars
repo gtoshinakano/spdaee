@@ -1,3 +1,17 @@
+<div class="row">
+  <!-- show any messages that come back with authentication -->
+  {{#if error}}
+    <p class="alert alert-warning">{{error}}</p>
+  {{/if}}
+
+  {{#if success}}
+    <p class="alert alert-success">{{success}}</p>
+  {{/if}}
+
+  {{#if notice}}
+    <p class="alert alert-info">{{notice}}</p>
+  {{/if}}
+</div>
 <h1>Sobre o SPDAEE</h1>
 
 <p>Sistema de Patrimônio do DAEE:</p>

@@ -103,7 +103,7 @@ exports.loginPost = function(req, res, next){
  */
 exports.logout = function(req,res){
 
-	req.session.notice = "Deslogado";
+	req.session.error = res.locals.error;
 	delete req.session.login;
 	delete req.session.nivel;
 	delete req.session.lastAccess;
