@@ -5,19 +5,27 @@ var main = require('./handlers/main.js'),
 
 module.exports = function(app){
 
-  //Main routes
+  /*
+   * Rotas abertas para todos
+   */
   app.get('/', main.about);
   app.get('/about', main.about);
   app.get('/login', main.login);
   app.post('/login', main.loginPost);
   app.get('/logout', main.logout);
 
-  //Páginas Restritas
+  /*
+   * Páginas Restritas
+   * Apenas para usuários logados
+   */
   restrict.simpleSession(app);
   app.get('/signup', main.signup);
   app.post('/signup', main.signupPost);
 
-  //Páginas Restritas por nível de permissão 1
+  /*
+   * Páginas Restritas
+   * Apenas para nível de permissão 1 : Administradores
+   */
   restrict.redirectByPermission(app, 1);
   app.get('/migrateUsers/:ind', migration.migrateUsers);
   app.post('/migrateUsers/:ind', migration.migrateUsersPost);
