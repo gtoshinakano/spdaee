@@ -32,7 +32,7 @@ exports.redirectByPermission = function(app, nivel){
 
   app.use(function(req, res, next){
 
-    if (req.session.nivel != nivel){
+    if (req.session.nivel < nivel){
 
       req.session.error = "Página restrita para o seu nível de permissão";
       return res.redirect(303, '/about');

@@ -30,4 +30,11 @@ module.exports = function(app){
   app.get('/migrateUsers/:ind', migration.migrateUsers);
   app.post('/migrateUsers/:ind', migration.migrateUsersPost);
 
+  /*
+   * Páginas Restritas
+   * Apenas para nível de permissão 2 : Administradores
+   */
+  restrict.redirectByPermission(app, 2);
+  app.get('/perm2', main.about);
+
 }
