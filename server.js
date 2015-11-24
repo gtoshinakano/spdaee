@@ -56,6 +56,7 @@ require('./routes/middlewares.js')(app);
  * Chamando Rotas
  */
 require('./routes/routes.js')(app);
+//require('./routes/apk-routes.js')(app);
 
 /*
  * 404 Erro de tudo o que não estiver previsto
